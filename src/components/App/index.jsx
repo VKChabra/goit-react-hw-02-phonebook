@@ -1,7 +1,6 @@
 import { Component } from 'react';
-// import { Notify } from 'notiflix';
 import { nanoid } from 'nanoid';
-import styles from 'components/App/styles.module.css';
+import styles from './app.module.css';
 import ContactForm from 'components/ContactForm';
 import Filter from 'components/Filter';
 import Contacts from 'components/Contacts';
@@ -17,7 +16,7 @@ export class App extends Component {
     filter: '',
   };
 
-  submitAddContant = e => {
+  submitAddContact = e => {
     e.preventDefault();
     const form = e.target;
     const name = form.elements.name.value;
@@ -30,7 +29,6 @@ export class App extends Component {
     );
 
     if (existingName) {
-      // Notify.failure(`${normName} is already in contacts, sorry`);
       return alert(`${name} is already in contacts, sorry`);
     }
 
@@ -49,13 +47,10 @@ export class App extends Component {
     this.setState({ filter: e.target.value });
   };
 
-  deleteContact = e => {
-    console.log(e);
-    // const normName = name.toLowerCase();
-    // const existingName = this.state.contacts.find(contact =>
-    //   contact.name.toLowerCase().includes(normName)
-    // );
-    // console.log(existingName);
+  deleteContact = id => {
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(contact => contact.id !== id),
+    }));
   };
 
   render() {
@@ -69,7 +64,7 @@ export class App extends Component {
     return (
       <div className={styles.wrapper}>
         <h1>Phonebook</h1>
-        <ContactForm submit={this.submitAddContant} />
+        <ContactForm submitAddContact={this.submitAddContact} />
         <h2>Contacts</h2>
         <Filter value={filter} onChange={this.onChangeFilter} />
         <Contacts contacts={filteredContacts} onClick={this.deleteContact} />

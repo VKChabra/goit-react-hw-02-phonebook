@@ -1,12 +1,10 @@
-import styles from 'components/ContactForm/styles.module.css';
+import styles from './contactForm.module.css';
+import PropTypes from 'prop-types';
 
-const ContactForm = ({ submit }) => {
-  // const handleSubmit = () => {
-
-  // }
+const ContactForm = ({ submitAddContact }) => {
   return (
-    <form className={styles.contactForm} onSubmit={submit}>
-      <label>
+    <form className={styles.contactForm} onSubmit={submitAddContact}>
+      <label className={styles.formLabel}>
         Name
         <input
           type="text"
@@ -16,7 +14,7 @@ const ContactForm = ({ submit }) => {
           required
         />
       </label>
-      <label>
+      <label className={styles.formLabel}>
         Number
         <input
           type="tel"
@@ -29,6 +27,10 @@ const ContactForm = ({ submit }) => {
       <button type="submit">Add contact</button>
     </form>
   );
+};
+
+ContactForm.propTypes = {
+  submitAddContact: PropTypes.func.isRequired,
 };
 
 export default ContactForm;
