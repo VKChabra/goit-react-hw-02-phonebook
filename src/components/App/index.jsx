@@ -23,9 +23,9 @@ export class App extends Component {
     const number = form.elements.number.value;
     form.reset();
 
-    const normName = name.toLowerCase();
+    const normalizedName = name.toLowerCase();
     const existingName = this.state.contacts.find(contact =>
-      contact.name.toLowerCase().includes(normName)
+      contact.name.toLowerCase().includes(normalizedName)
     );
 
     if (existingName) {
@@ -66,8 +66,11 @@ export class App extends Component {
         <h1>Phonebook</h1>
         <ContactForm submitAddContact={this.submitAddContact} />
         <h2>Contacts</h2>
-        <Filter value={filter} onChange={this.onChangeFilter} />
-        <Contacts contacts={filteredContacts} onClick={this.deleteContact} />
+        <Filter value={filter} onChangeFilter={this.onChangeFilter} />
+        <Contacts
+          contacts={filteredContacts}
+          deleteContact={this.deleteContact}
+        />
       </div>
     );
   }
